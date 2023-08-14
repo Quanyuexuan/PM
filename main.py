@@ -203,7 +203,7 @@ def startSign(userId, token, planId, user, startType):
     signStatus = '打卡'
 
     hourNow = datetime.datetime.now(pytz.timezone('PRC')).hour
-    if hourNow == 14 or hourNow == 18:
+    if hourNow == 20 or hourNow == 21:
         signStatus = '补签'
 
     # 推送消息内容构建
@@ -254,10 +254,10 @@ def signCheck(users):
         lastSignType = lastSignInfo["type"]
         hourNow = datetime.datetime.now(pytz.timezone('PRC')).hour
         nowDate = str(datetime.datetime.now(pytz.timezone('PRC')))[0:10]
-        if hourNow <= 14 and lastSignType == 'END' and lastSignDate != nowDate:
+        if hourNow <= 20 and lastSignType == 'END' and lastSignDate != nowDate:
             print('            今日未打上班卡，准备补签          ')
             prepareSign(user)
-        if hourNow >= 18 and lastSignType == 'START' and lastSignDate == nowDate:
+        if hourNow >= 21 and lastSignType == 'START' and lastSignDate == nowDate:
             print('            今日未打下班卡，准备补签          ')
             prepareSign(user)
         print('        Tips：如果没提示上班或者下班补签即代表上次打卡正常          ')
@@ -267,7 +267,7 @@ def signCheck(users):
 if __name__ == '__main__':
     users = parseUserInfo()
     hourNow = datetime.datetime.now(pytz.timezone('PRC')).hour
-    if hourNow == 14 or hourNow == 18:
+    if hourNow == 20 or hourNow == 21:
         print('----------------------------每日签到检查开始-----------------------------')
         print('          每日11点以及23点为打卡检查，此时间段内自动打卡不会运行          ')
         try:
